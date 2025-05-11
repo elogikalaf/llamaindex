@@ -29,7 +29,7 @@ vector_store = PineconeVectorStore(
     pinecone_index=pinecone_index
 )
 
-# web scarping 
+# web scarping
 # loader = BeautifulSoupWebReader()
 # documents = loader.load_data(urls=[DATA_URL])
 
