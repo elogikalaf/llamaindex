@@ -24,7 +24,19 @@ embed_model = GoogleGenAIEmbedding(
 
 pinecone_client = Pinecone(api_key=PINECONE_API_KEY)
 
+
 pinecone_index = pinecone_client.Index("hanji")
+
+
+# Check for existing records and delete if any
+index_stats = pinecone_index.describe_index_stats()
+if index_stats.get("total_vector_count", 0) > 0:
+    print("Existing vectors found. Deleting all...")
+    pinecone_index.delete(delete_all=True)
+else:
+    print("Index is empty. Proceeding with ingestion.")
+
+
 vector_store = PineconeVectorStore(
     pinecone_index=pinecone_index
 )
